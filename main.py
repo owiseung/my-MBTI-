@@ -1,5 +1,4 @@
 import streamlit as st
-st.title ('오위승의 첫 웹앱')
 
 # ------------------------------
 # MBTI별 추천 포켓몬 데이터
