@@ -52,7 +52,7 @@ if st.button("포켓몬 추천받기 🔍"):
 
     st.divider()
     st.success("이제 왼쪽 사이드바에서 '공유 채팅방'으로 이동해 이 포켓몬을 프로필로 대화해보세요!")
-    st.page_link("pages/1_공유_채팅방.py", label="💬 공유 채팅방으로 이동", icon="💬")
+    st.page_link("pages/00_공유채팅방.py", label="💬 공유 채팅방으로 이동", icon="💬")
 
 st.divider()
 st.caption("Made with Streamlit 🐍 · 16가지 MBTI 유형별 포켓몬 매칭")
