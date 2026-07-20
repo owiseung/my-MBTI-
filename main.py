@@ -39,6 +39,25 @@ MBTI_POKEMON = {
 }
 
 # ------------------------------
+# MBTI 궁합 데이터 (서로 부족한 부분을 채워주는 짝)
+# ------------------------------
+COMPATIBLE_PAIRS = [
+    ("ISTJ", "ESFP", "원칙적이고 신중한 ISTJ와 즉흥적이고 활발한 ESFP가 서로의 빈틈을 채워줘요."),
+    ("ISFJ", "ESTP", "헌신적이고 세심한 ISFJ와 대담하고 모험적인 ESTP가 안정과 자극의 균형을 맞춰요."),
+    ("INFJ", "ENTP", "깊이 있는 통찰의 INFJ와 아이디어 넘치는 ENTP가 서로에게 지적 자극을 줘요."),
+    ("INTJ", "ENFP", "전략적인 INTJ와 감성 풍부한 ENFP가 이성과 감성으로 서로를 보완해요."),
+    ("ISTP", "ESFJ", "독립적인 ISTP와 배려심 많은 ESFJ가 자유로움과 따뜻한 유대감을 함께 나눠요."),
+    ("ISFP", "ESTJ", "자유롭고 유연한 ISFP와 체계적인 ESTJ가 유연함과 안정감을 맞춰줘요."),
+    ("INFP", "ENTJ", "이상을 좇는 INFP와 추진력 있는 ENTJ가 만나면 꿈이 현실이 되는 조합이에요."),
+    ("INTP", "ENFJ", "논리적인 INTP와 공감 능력이 뛰어난 ENFJ가 생각과 감정을 이어줘요."),
+]
+
+COMPATIBLE_MBTI = {}
+for a, b, reason in COMPATIBLE_PAIRS:
+    COMPATIBLE_MBTI[a] = {"partner": b, "reason": reason}
+    COMPATIBLE_MBTI[b] = {"partner": a, "reason": reason}
+
+# ------------------------------
 # 페이지 기본 설정
 # ------------------------------
 st.set_page_config(page_title="MBTI 포켓몬 추천기", page_icon="⚡", layout="centered")
@@ -66,6 +85,21 @@ if st.button("포켓몬 추천받기 🔍"):
         st.markdown(f"### {result['name']}")
         st.markdown(f"**타입:** {result['type']}")
         st.write(result["reason"])
+
+    st.divider()
+
+    compat = COMPATIBLE_MBTI[selected_mbti]
+    st.subheader(f"💞 {selected_mbti}와 궁합이 좋은 MBTI는 {compat['partner']}!")
+    st.write(compat["reason"])
+
+    partner_pokemon = MBTI_POKEMON[compat["partner"]]
+    partner_sprite_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{partner_pokemon['dex']}.png"
+
+    col3, col4 = st.columns([1, 2])
+    with col3:
+        st.image(partner_sprite_url, width=140)
+    with col4:
+        st.markdown(f"**{compat['partner']}의 포켓몬:** {partner_pokemon['name']} ({partner_pokemon['type']})")
 
 st.divider()
 st.caption("Made with Streamlit 🐍 · 16가지 MBTI 유형별 포켓몬 매칭")
